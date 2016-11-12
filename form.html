@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>几种常见的表单</title>
+	<script type="text/javascript">
+
+	//验证用户名是否符合要求（正则表达式）
+	function checkName(name){
+		var reg=/^[a-zA-Z0-9]{6,20}$/;
+		var isRight=reg.test(name);
+		if(!isRight){
+			alert("用户名录入错误");
+			var form1=document.getElementById("form1");
+			form1.value="";
+			form1.style.borderColor="red";
+
+		}
+	}
+	
+	//验证输入的电话号码是否符合要求（正则表达式）
+	function checkPhone(phone){
+		var reg=/^\d{8}$/;
+		var isRight=reg.test(phone);
+		if(!isRight){
+			alert("电话号码录入错误！");
+			var form2=document.getElementById("form2");
+			form2.value="";
+			form2.style.borderColor="red";
+		}
+	}
+
+	//联动菜单
+	var array=new Array();
+	array[0]=["请选择"];
+	array[1]=["济南","青岛","淄博","烟台","威海","德州"];
+	array[2]=["石家庄","秦皇岛","保定","唐山","邯郸","张家口"];
+	array[3]=["郑州","开封","洛阳","漯河","三门峡"];
+
+	function showCities(){
+		var i=document.getElementById("sel1").selectedIndex;
+		var sellObj=document.getElementById("sel2");
+		for(var j=0;j<sellObj.childNodes.length;j++){
+			sellObj.removeChild(sellObj.childNodes[j]);
+		}
+		while(sellObj.childNodes.length>0){
+			sellObj.removeChild(sellObj.firstChild);
+		}
+		var cities=array[i];
+		for(var index=0;index<cities.length;index++){
+			var newNode=document.createElement("option");
+			newNode.innerHTML=cities[index];
+			document.getElementById("sel2").appendChild(newNode);
+		}
+	}
+	</script>
+</head>
+<body>
+	<form>
+		<fieldset>
+				<legend>验证电话号码</legend>
+				请输入6~20位字母数字组合的用户名：<input type="text" id="form1" onblur="checkName(this.value);"> 
+		</fieldset>
+		<fieldset style="margin-top:20px;">
+				<legend>验证电话号码</legend>
+				请输入8位电话号码：<input type="text" id="form2" onblur="checkPhone(this.value);">
+		</fieldset>
+		<fieldset style="margin-top:20px;">
+			<legend style="margin-top:20px;">联动菜单</legend>
+				<select id="sel1" onchange="showCities();">
+					<option>请选择省</option>
+					<option>山东</option>
+					<option>河北</option>
+					<option>河南</option>
+				</select>
+				<select id="sel2">
+					<option>请选择市</option>
+				</select>
+		</fieldset>
+	</form>
+</body>
+</html>
